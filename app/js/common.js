@@ -23,12 +23,12 @@ class gallery {
                 <div class="gallery-opened__preview-wrap"></div>
                 </div>
                     <div class="arrow-wrap arrow-wrap--prev">
-                    <a href="javascript:;" class="arrow-wrap__link">
+                    <a href="javascript:;" class="arrow-wrap__link arrow-wrap__link--prev">
                     <img src="../img/arrow-left-b.svg" alt="" class="arrow-wrap__link-img arrow-wrap__link-img--left">
                 </a>
                 </div>
                     <div class="arrow-wrap arrow-wrap--next">
-                    <a href="javascript:;" class="arrow-wrap__link">
+                    <a href="javascript:;" class="arrow-wrap__link arrow-wrap__link--next">
                     <img src="../img/arrow-left-b.svg" alt="" class="arrow-wrap__link-img arrow-wrap__link-img--right">
                 </a>
                 </div>
@@ -44,15 +44,12 @@ class gallery {
             $galleryWrap.append(`<div class="gallery-opened__bottom-img-wrap">
                 <a href="" class="gallery-opened__bottom-img-wrap-link">
                     <img src="` + $galleryWrapImg.eq(i).attr('src') + `
-                " alt="" class="gallery-opened__img">
+                " alt="" class="gallery-opened__bottom-img">
                 </a>
                 </div>`);
         }
     }
 
-    galleryBigPicCreate() {
-
-    }
 }
 
 const Gallery = new gallery();
@@ -65,25 +62,54 @@ const galleryShow = () => {
     const $galleryBtn = $('.arrow-wrap');
     const $galleryBigPicWrap = $('.gallery-opened__preview-wrap');
     const galleryBigPicSrc = [];
+    const $galleryBottomLink = $('.gallery-opened__bottom-img-wrap-link');
+    const $galleryNextIcon = $('.arrow-wrap__link--next');
+    const $galleryPrevIcon = $('.arrow-wrap__link--prev');
+
 
     $.getJSON('js/ajax/img.json', function (data) {
         for (let i = 0; i < data.images.length; i++) {
             galleryBigPicSrc.push(data.images[i]);
         }
+        for (let i = 0; i < galleryBigPicSrc.length; i++) {
+            $galleryBigPicWrap.append(`
+            <div class="gallery-opened__preview-img-wrap">
+            <img src="` + galleryBigPicSrc[i] + `" alt="" class="gallery-opened__preview-img">
+            </div>`);
+        }
     });
 
     $galleryPic.on('click', ( e ) => {
         const $target = $(e.target);
+        const $targetIndex = ($target.closest('.col-lg-3').index());
+        console.log($targetIndex);
+        // const $galleryOpenedItem = $('.gallery-opened__preview-img-wrap:nth-child($targetIndex)');
         e.preventDefault();
         $galleryWrap.addClass('opened');
         $galleryBtn.addClass('opened');
-        if ($('.gallery-opened__preview-img-wrap').length == 0 && ) {
-            $galleryBigPicWrap.append(`
-            <div class="gallery-opened__preview-img-wrap">
-            <img src="` + galleryBigPicSrc[$target.closest('.col-lg-3').index()] + `" alt="" class="gallery-opened__preview-img">
-            </div>`);
-        }
+        // $galleryOpenedItem.addClass('current');
     });
+
+
+    $galleryNextIcon.on('click', (e) => {
+        const $target = $(e.target);
+        e.preventDefault();
+        $target.removeClass('current').next().addClass('current');
+    });
+
+    $galleryPrevIcon.on('click', (e) => {
+        const $galleryTarget = $('.gallery-opened__preview-img-wrap');
+        e.preventDefault();
+        $galleryTarget.find('.current').removeClass('current').prev().addClass('current');
+    });
+
+    $galleryBottomLink.on('click', (e) => {
+        const $target = $(e.target);
+        e.preventDefault();
+        $galleryPic.trigger('click');
+    });
+
+
 
     $galleryOverlay.on('click', () => {
         $galleryWrap.removeClass('opened');
