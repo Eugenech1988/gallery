@@ -1,0 +1,126 @@
+//loader styles
+
+.sk-cube-grid
+  width: 40px
+  height: 40px
+  margin: 100px auto
+  .sk-cube
+    width: 33%
+    height: 33%
+    background-color: #99AFAB
+    float: left
+    -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out
+    animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out
+  .sk-cube1
+    -webkit-animation-delay: 0.2s
+    animation-delay: 0.2s
+  .sk-cube2
+    -webkit-animation-delay: 0.3s
+    animation-delay: 0.3s
+  .sk-cube3
+    -webkit-animation-delay: 0.4s
+    animation-delay: 0.4s
+  .sk-cube4
+    -webkit-animation-delay: 0.1s
+    animation-delay: 0.1s
+  .sk-cube5
+    -webkit-animation-delay: 0.2s
+    animation-delay: 0.2s
+  .sk-cube6
+    -webkit-animation-delay: 0.3s
+    animation-delay: 0.3s
+  .sk-cube7
+    -webkit-animation-delay: 0s
+    animation-delay: 0s
+  .sk-cube8
+    -webkit-animation-delay: 0.1s
+    animation-delay: 0.1s
+  .sk-cube9
+    -webkit-animation-delay: 0.2s
+    animation-delay: 0.2s
+
+@-webkit-keyframes sk-cubeGridScaleDelay
+  0%, 70%, 100%
+    -webkit-transform: scale3D(1, 1, 1)
+    transform: scale3D(1, 1, 1)
+
+  35%
+    -webkit-transform: scale3D(0, 0, 1)
+    transform: scale3D(0, 0, 1)
+
+
+@keyframes sk-cubeGridScaleDelay
+  0%, 70%, 100%
+    -webkit-transform: scale3D(1, 1, 1)
+    transform: scale3D(1, 1, 1)
+
+  35%
+    -webkit-transform: scale3D(0, 0, 1)
+    transform: scale3D(0, 0, 1)
+
+//loader-bg styles
+
+.loader-wrap
+  position: relative
+  text-align: center
+  transition: all .5s ease
+  margin-top: -100px
+  z-index: 1000
+  transform: translateY(200px)
+  opacity: 0
+
+.loading-notify
+  font-weight: 700
+  font-size: 28px
+  animation: textColor 1.4s infinite
+
+@keyframes textColor
+  0%
+    color: #D8E0DE
+  50%
+    color: #8EA6A2
+  100%
+    color: #D8E0DE
+
+#main-wrapper
+  height: 100%
+  position: relative
+  display: flex
+  justify-content: center
+  align-items: center
+  &:before,
+  &:after
+    transition: all .3s
+    content: ''
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+  &:after
+    background-image: radial-gradient(ellipse at center, rgba(216, 224, 222, 1) 0%, rgba(174, 191, 188, 1) 22%, rgba(153, 175, 171, 1) 33%, rgba(142, 166, 162, 1) 50%, rgba(130, 157, 152, 1) 67%, rgba(78, 92, 90, 1) 82%, rgba(14, 14, 14, 1) 100%)
+  &:before
+    background-image: url("../img/main-bg.jpg")
+  &.fade
+    &:before
+      opacity: 0
+    &:after
+      opacity: 1
+    .loader-wrap
+      transform: translateX(0)
+      opacity: 1
+  &.loaded
+    display: block
+    position: initial
+    &:before
+      opacity: 1
+    &:after
+      transition: all .3s
+      opacity: 0
+      z-index: -1
+    .gallery__wrap
+      display: block
+    .loader-wrap
+      display: none
+  .gallery__wrap
+    display: none

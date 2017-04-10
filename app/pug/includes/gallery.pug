@@ -1,0 +1,13 @@
+mixin gallery-items(item)
+    .col-lg-3.col-md-6.col-sm-12.col-xs-12
+        .gallery__img-wrap
+            a.gallery__img-link(href="")
+                img.gallery__img(src="http://dummyimage.com/240/" + item + "")
+.gallery__wrap
+    .container
+        .gallery__inner
+            .row
+                +gallery-items('622585')
+                +gallery-items('56856A')
+                +gallery-items('85672A')
+                +gallery-items('851A2E')
