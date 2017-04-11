@@ -1,14 +1,14 @@
 var 	gulp           = require('gulp'),
-    sass           = require('gulp-sass'),
-    cleanCSS       = require('gulp-clean-css'),
-    autoprefixer   = require('gulp-autoprefixer'),
-    browserSync    = require('browser-sync'),
-    sourcemaps 	   = require('gulp-sourcemaps'),
-    multipipe      = require('multipipe'),
-    babel          = require('gulp-babel'),
-    rename         = require('gulp-rename'),
-    pug            = require('gulp-pug'),
-    notify         = require('gulp-notify');
+        sass           = require('gulp-sass'),
+        cleanCSS       = require('gulp-clean-css'),
+        autoprefixer   = require('gulp-autoprefixer'),
+        browserSync    = require('browser-sync'),
+        sourcemaps 	   = require('gulp-sourcemaps'),
+        multipipe      = require('multipipe'),
+        babel          = require('gulp-babel'),
+        rename         = require('gulp-rename'),
+        pug            = require('gulp-pug'),
+        notify         = require('gulp-notify');
 
 gulp.task('browser-sync', function() {
     browserSync({

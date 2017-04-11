@@ -7,7 +7,7 @@ const loaderHide = () => {
     }, 3000);
 };
 
-class gallery {
+class Gallery {
     constructor() {
         this.isInit = false;
         this.imgCount = $('.gallery__img').length;
@@ -52,7 +52,7 @@ class gallery {
 
 }
 
-const Gallery = new gallery();
+const gallery = new Gallery();
 
 const galleryShow = () => {
 
@@ -66,7 +66,6 @@ const galleryShow = () => {
     const $galleryNextIcon = $('.arrow-wrap__link--next');
     const $galleryPrevIcon = $('.arrow-wrap__link--prev');
 
-
     $.getJSON('js/ajax/img.json', function (data) {
         for (let i = 0; i < data.images.length; i++) {
             galleryBigPicSrc.push(data.images[i]);
@@ -79,28 +78,34 @@ const galleryShow = () => {
         }
     });
 
+
     $galleryPic.on('click', ( e ) => {
         const $target = $(e.target);
         const $targetIndex = ($target.closest('.col-lg-3').index());
+        const $galleryOpenedItem = $('.gallery-opened__preview-img-wrap');
         console.log($targetIndex);
         // const $galleryOpenedItem = $('.gallery-opened__preview-img-wrap:nth-child($targetIndex)');
         e.preventDefault();
         $galleryWrap.addClass('opened');
         $galleryBtn.addClass('opened');
-        // $galleryOpenedItem.addClass('current');
+        $galleryBigPicWrap.find($galleryOpenedItem).eq($targetIndex).addClass('current');
     });
 
 
     $galleryNextIcon.on('click', (e) => {
         const $target = $(e.target);
+        const $galleryWrap = $('.gallery-opened__preview-wrap');
         e.preventDefault();
-        $target.removeClass('current').next().addClass('current');
+        $galleryWrap.find('.gallery-opened__preview-img-wrap.current').removeClass('current').next().addClass('current');
     });
 
     $galleryPrevIcon.on('click', (e) => {
-        const $galleryTarget = $('.gallery-opened__preview-img-wrap');
+        const $galleryWrap = $('.gallery-opened__preview-wrap');
         e.preventDefault();
-        $galleryTarget.find('.current').removeClass('current').prev().addClass('current');
+        $galleryWrap.find('.gallery-opened__preview-img-wrap.current').removeClass('current').prev().addClass('current');
+        if (!$galleryWrap.find('.gallery-opened__preview-img-wrap.current').prev()) {
+            alert('stop');
+        }
     });
 
     $galleryBottomLink.on('click', (e) => {
@@ -109,9 +114,9 @@ const galleryShow = () => {
         $galleryPic.trigger('click');
     });
 
-
-
     $galleryOverlay.on('click', () => {
+        const $galleryOpenedItem = $('.gallery-opened__preview-img-wrap');
+        $galleryOpenedItem.removeClass('current');
         $galleryWrap.removeClass('opened');
         $galleryBtn.removeClass('opened');
     });
@@ -120,7 +125,7 @@ const galleryShow = () => {
 
 window.onload = () => {
     loaderHide();
-    Gallery.galleryInnerCreate();
-    Gallery.galleryBottomCreate();
+    gallery.galleryInnerCreate();
+    gallery.galleryBottomCreate();
     galleryShow();
 };
